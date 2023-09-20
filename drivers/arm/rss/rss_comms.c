@@ -52,9 +52,9 @@ static uint8_t select_protocol_version(const psa_invec *in_vec, size_t in_len,
 				     sizeof(struct rss_embed_reply_t) -
 				     PLAT_RSS_COMMS_PAYLOAD_MAX_SIZE;
 
-	NOTICE("[RSS_SERIAL] msg_min: %lu, reply_min: %lu, in: %lu, out: %lu, mhu: %lu\n",
-	       comms_embed_msg_min_size, comms_embed_reply_min_size,
-	       in_size_total, out_size_total, comms_mhu_msg_size);
+	//NOTICE("[RSS_SERIAL] msg_min: %lu, reply_min: %lu, in: %lu, out: %lu, mhu: %lu\n",
+	//       comms_embed_msg_min_size, comms_embed_reply_min_size,
+	//       in_size_total, out_size_total, comms_mhu_msg_size);
 
 	/* Use embed if we can pack into one message and reply, else use
 	 * pointer_access. The underlying MHU transport protocol uses a
@@ -69,10 +69,10 @@ static uint8_t select_protocol_version(const psa_invec *in_vec, size_t in_len,
 	 */
 	if ((comms_embed_msg_min_size + in_size_total + sizeof(int32_t) > comms_mhu_msg_size) ||
 	    (comms_embed_reply_min_size + out_size_total + sizeof(uint32_t) > comms_mhu_msg_size)) {
-		NOTICE("[RSS_SERIAL] protocol: POINTER_ACCESS\n");
+		//NOTICE("[RSS_SERIAL] protocol: POINTER_ACCESS\n");
 		return RSS_COMMS_PROTOCOL_POINTER_ACCESS;
 	} else {
-		NOTICE("[RSS_SERIAL] protocol: EMBED\n");
+		//NOTICE("[RSS_SERIAL] protocol: EMBED\n");
 		return RSS_COMMS_PROTOCOL_EMBED;
 	}
 }
@@ -104,16 +104,16 @@ psa_status_t psa_call(psa_handle_t handle, int32_t type, const psa_invec *in_vec
 
 	/* debug print */
 	{
-		NOTICE("[RSS_SERIAL] Sending message:\n");
-		NOTICE("[RSS_SERIAL]   protocol_ver=%u\n", io_buf.msg.header.protocol_ver);
-		NOTICE("[RSS_SERIAL]   seq_num=%u\n", io_buf.msg.header.seq_num);
-		NOTICE("[RSS_SERIAL]   client_id=%u\n", io_buf.msg.header.client_id);
+		//NOTICE("[RSS_SERIAL] Sending message:\n");
+		//NOTICE("[RSS_SERIAL]   protocol_ver=%u\n", io_buf.msg.header.protocol_ver);
+		//NOTICE("[RSS_SERIAL]   seq_num=%u\n", io_buf.msg.header.seq_num);
+		//NOTICE("[RSS_SERIAL]   client_id=%u\n", io_buf.msg.header.client_id);
 		for (idx = 0; idx < in_len; idx++) {
-			NOTICE("[RSS_SERIAL]   in_vec[%lu].len=%lu\n", idx, in_vec[idx].len);
+			//NOTICE("[RSS_SERIAL]   in_vec[%lu].len=%lu\n", idx, in_vec[idx].len);
 			//NOTICE("[RSS_SERIAL]   in_vec[%lu].buf=%p\n", idx, (void *)in_vec[idx].base);
 		}
 		for (idx = 0; idx < out_len; idx++) {
-			NOTICE("[RSS_SERIAL]   out_vec[%lu].len=%lu\n", idx, out_vec[idx].len);
+			//NOTICE("[RSS_SERIAL]   out_vec[%lu].len=%lu\n", idx, out_vec[idx].len);
 			//NOTICE("[RSS_SERIAL]   out_vec[%lu].buf=%p\n", idx, (void *)out_vec[idx].base);
 		}
 	}
@@ -150,13 +150,13 @@ psa_status_t psa_call(psa_handle_t handle, int32_t type, const psa_invec *in_vec
 
 	/* debug print */
 	{
-		NOTICE("[RSS_SERIAL] Received reply:\n");
-		NOTICE("[RSS_SERIAL]   protocol_ver=%u\n", io_buf.reply.header.protocol_ver);
-		NOTICE("[RSS_SERIAL]   seq_num=%u\n", io_buf.reply.header.seq_num);
-		NOTICE("[RSS_SERIAL]   client_id=%u\n", io_buf.reply.header.client_id);
-		NOTICE("[RSS_SERIAL]   return_val=%d\n", return_val);
+		//NOTICE("[RSS_SERIAL] Received reply:\n");
+		//NOTICE("[RSS_SERIAL]   protocol_ver=%u\n", io_buf.reply.header.protocol_ver);
+		//NOTICE("[RSS_SERIAL]   seq_num=%u\n", io_buf.reply.header.seq_num);
+		//NOTICE("[RSS_SERIAL]   client_id=%u\n", io_buf.reply.header.client_id);
+		//NOTICE("[RSS_SERIAL]   return_val=%d\n", return_val);
 		for (idx = 0U; idx < out_len; idx++) {
-			NOTICE("[RSS_SERIAL]   out_vec[%lu].len=%lu\n", idx, out_vec[idx].len);
+			//NOTICE("[RSS_SERIAL]   out_vec[%lu].len=%lu\n", idx, out_vec[idx].len);
 			//NOTICE("[RSS_SERIAL]   out_vec[%lu].buf=%p\n", idx, (void *)out_vec[idx].base);
 		}
 	}

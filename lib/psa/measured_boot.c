@@ -47,18 +47,18 @@ static void log_measurement(uint8_t index,
 			    size_t measurement_value_size,
 			    bool lock_measurement)
 {
-	NOTICE("Measured boot extend measurement:\n");
-	NOTICE(" - slot        : %u\n", index);
-	NOTICE(" - signer_id   :");
+	//NOTICE("Measured boot extend measurement:\n");
+	//NOTICE(" - slot        : %u\n", index);
+	//NOTICE(" - signer_id   :");
 	print_byte_array(signer_id, signer_id_size);
-	NOTICE(" - version     : %s\n",  version);
-	NOTICE(" - version_size: %zu\n", version_size);
-	NOTICE(" - sw_type     : %s\n",  sw_type);
-	NOTICE(" - sw_type_size: %zu\n", sw_type_size);
-	NOTICE(" - algorithm   : %x\n", measurement_algo);
-	NOTICE(" - measurement :");
+	//NOTICE(" - version     : %s\n",  version);
+	//NOTICE(" - version_size: %zu\n", version_size);
+	//NOTICE(" - sw_type     : %s\n",  sw_type);
+	//NOTICE(" - sw_type_size: %zu\n", sw_type_size);
+	//NOTICE(" - algorithm   : %x\n", measurement_algo);
+	//NOTICE(" - measurement :");
 	print_byte_array(measurement_value, measurement_value_size);
-	NOTICE(" - locking     : %s\n", lock_measurement ? "true" : "false");
+	//NOTICE(" - locking     : %s\n", lock_measurement ? "true" : "false");
 }
 
 #if !PLAT_RSS_NOT_SUPPORTED

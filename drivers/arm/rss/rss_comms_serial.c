@@ -42,7 +42,7 @@ static void serial_lazy_initialize()
 	}
 	data_channel.flags = 0;
 	data_channel_initialized = true;
-	NOTICE("[RSS_SERIAL] Serial initialized\n");
+	//NOTICE("[RSS_SERIAL] Serial initialized\n");
 }
 
 size_t mhu_get_max_message_size(void)
@@ -61,12 +61,12 @@ enum mhu_error_t mhu_send_data(const uint8_t *send_buffer, size_t size)
 	for (i = 0; i < size; ++i) {
 		ret = console_pl011_rawputc(send_buffer[i], &data_channel);
 		if (ret < 0) {
-			NOTICE("[RSS_SERIAL] serial error: %d\n", ret);
+			//NOTICE("[RSS_SERIAL] serial error: %d\n", ret);
 			return MHU_ERR_GENERAL;
 		}
 	}
 
-	NOTICE("[RSS_SERIAL] sent %lu bytes\n", size);
+	//NOTICE("[RSS_SERIAL] sent %lu bytes\n", size);
 
 	return MHU_ERR_NONE;
 }
@@ -103,7 +103,7 @@ enum mhu_error_t mhu_receive_data(uint8_t *receive_buffer, size_t *size)
 
 	for (;;) {
 		if (read >= buf_size) {
-			NOTICE("[RSS_SERIAL] buffer overflow");
+			//NOTICE("[RSS_SERIAL] buffer overflow");
 			return MHU_ERR_GENERAL;
 		}
 		int retry = 100;
@@ -118,7 +118,7 @@ enum mhu_error_t mhu_receive_data(uint8_t *receive_buffer, size_t *size)
 #endif
 
 	*size = read;
-	NOTICE("[RSS_SERIAL] read %lu bytes\n", read);
+	//NOTICE("[RSS_SERIAL] read %lu bytes\n", read);
 
 	return MHU_ERR_NONE;
 }
