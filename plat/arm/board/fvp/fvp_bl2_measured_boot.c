@@ -88,7 +88,7 @@ struct rss_mboot_metadata fvp_rss_mboot_metadata[] = {
 		.slot = U(12),
 		.signer_id_size = SIGNER_ID_MIN_SIZE,
 		.sw_type = RSS_MBOOT_RMM_STRING,
-		.pk_oid = RMM_IMAGE_KEY_OID,
+		.pk_oid = ZERO_OID,
 		.lock_measurement = true },
 #endif /* ENABLE_RME */
 	{
