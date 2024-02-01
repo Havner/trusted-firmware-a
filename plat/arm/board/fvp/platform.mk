@@ -474,10 +474,21 @@ BL2_SOURCES		+=	plat/arm/board/fvp/fvp_common_measured_boot.c	\
 
 ifneq (${PLAT_RSS_COMMS_USE_SERIAL},0)
     $(warning "RSS serial used, need an external HES implementation.")
+    include drivers/arm/rss/rss_comms.mk
+
+    BL1_CFLAGS += -DPLAT_RSS_COMMS_USE_SERIAL=1 \
+                  -DPLAT_RSS_COMMS_PAYLOAD_MAX_SIZE=0x1000 \
+                  -DENABLE_CONSOLE_GETC=1
+    BL1_SOURCES += ${RSS_COMMS_SOURCES}
+
+    BL2_CFLAGS += -DPLAT_RSS_COMMS_USE_SERIAL=1 \
+                  -DPLAT_RSS_COMMS_PAYLOAD_MAX_SIZE=0x1000 \
+                  -DENABLE_CONSOLE_GETC=1
+    BL2_SOURCES += ${RSS_COMMS_SOURCES}
+
     BL31_CFLAGS += -DPLAT_RSS_COMMS_USE_SERIAL=1 \
                    -DPLAT_RSS_COMMS_PAYLOAD_MAX_SIZE=0x1000 \
                    -DENABLE_CONSOLE_GETC=1
-    include drivers/arm/rss/rss_comms.mk
     BL31_SOURCES += lib/psa/measured_boot.c \
                     lib/psa/delegated_attestation.c \
                     ${RSS_COMMS_SOURCES}
