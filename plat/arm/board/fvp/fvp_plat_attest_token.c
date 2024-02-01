@@ -7,8 +7,11 @@
 #include <errno.h>
 #include <string.h>
 
+#include <delegated_attestation.h>
 #include <plat/common/platform.h>
+#include <psa/error.h>
 
+#if PLAT_RSS_COMMS_USE_SERIAL == 0
 static const uint8_t sample_platform_token[] = {
 	0xD2, 0x84, 0x44, 0xA1, 0x01, 0x38, 0x22, 0xA0,
 	0x59, 0x02, 0x33, 0xA9, 0x19, 0x01, 0x09, 0x78,
@@ -95,6 +98,7 @@ static const uint8_t sample_platform_token[] = {
 	0xC1, 0x26, 0x96, 0x53, 0xA3, 0x60, 0x3F, 0x6C,
 	0x75, 0x96, 0x90, 0x6A, 0xF9, 0x4E, 0xDA, 0x30
 };
+#endif
 
 /*
  * Get the hardcoded platform attestation token as FVP does not support
@@ -103,6 +107,14 @@ static const uint8_t sample_platform_token[] = {
 int plat_rmmd_get_cca_attest_token(uintptr_t buf, size_t *len,
 				   uintptr_t hash, size_t hash_size)
 {
+#if PLAT_RSS_COMMS_USE_SERIAL != 0
+	psa_status_t ret;
+
+	ret = rss_delegated_attest_get_token((const uint8_t *)hash, hash_size,
+					     (uint8_t *)buf, *len, len);
+
+	return ret;
+#else
 	(void)hash;
 	(void)hash_size;
 
@@ -115,4 +127,5 @@ int plat_rmmd_get_cca_attest_token(uintptr_t buf, size_t *len,
 	*len = sizeof(sample_platform_token);
 
 	return 0;
+#endif
 }
